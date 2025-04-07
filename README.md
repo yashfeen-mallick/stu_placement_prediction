@@ -1,4 +1,5 @@
 ![students-with-backpacks-cartoon-poster-front-college-vector-illustration_1284-78244](https://github.com/user-attachments/assets/3b836029-5ab4-4232-8cf2-79a41c635583)
+
 📚 Student Placement Prediction 🎓
 This project uses Machine Learning to predict whether a student is likely to be placed or not based on academic and soft skill attributes. The model is deployed using Flask and provides a simple web interface for input and result display.
 
