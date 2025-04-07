@@ -1,8 +1,6 @@
-# app.py
-
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, render_template
 import pickle
-import numpy as np
+import pandas as pd
 
 # Load the trained model
 model_path = 'placement_model.pkl'
@@ -17,15 +15,24 @@ def home():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    # Extract data from form
-    int_features = [int(x) for x in request.form.values()]
-    final_features = [np.array(int_features)]
-    
-    # Make prediction
-    prediction = model.predict(final_features)
-    output = 'Placed' if prediction[0] == 1 else 'Not Placed'
+    try:
+        # Extract and map form data to correct features
+        data = pd.DataFrame([{
+            'iq': float(request.form['IQ']),
+            'cgpa': float(request.form['CGPA']),
+            '10th_marks': float(request.form['10th_Marks']),
+            '12th_marks': float(request.form['12th_Marks']),
+            'communication_skills': float(request.form['Communication_Skills'])
+        }])
 
-    return render_template('index.html', prediction_text='Prediction: {}'.format(output))
+        # Make prediction
+        prediction = model.predict(data)[0]
+        output = '✅ PLACED' if prediction == 1 or prediction == 'Yes' else '❌ NOT PLACED'
+
+        return render_template('index.html', prediction_text=f"Prediction: {output}")
+    
+    except Exception as e:
+        return render_template('index.html', prediction_text=f"Error: {str(e)}")
 
 if __name__ == "__main__":
     app.run(debug=True)
