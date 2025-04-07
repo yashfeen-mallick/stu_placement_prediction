@@ -36,11 +36,6 @@ Evaluation Metrics: Accuracy, Classification Report
 💻 How to Run Locally
 Clone the repository:
 
-bash
-Copy
-Edit
-git clone https://github.com/your-username/student-placement-prediction.git
-cd student-placement-prediction
 Create and activate a virtual environment:
 
 bash
